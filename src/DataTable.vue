@@ -596,6 +596,10 @@
 
 
 @media only screen and (min-width: 992px){
+	table th[data-tooltip] {
+		position: relative;
+	}
+	
 	table th[data-tooltip]:after {
 		opacity: 0;
 		visibility: hidden;
