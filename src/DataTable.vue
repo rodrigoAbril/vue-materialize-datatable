@@ -48,7 +48,8 @@
 								(sortType === 'desc' ? 'sorting-desc' : 'sorting-asc')
 								: '')
 							+ (column.numeric ? ' numeric' : '')"
-						:style="{width: column.width ? column.width : 'auto'}">
+						:style="{width: column.width ? column.width : 'auto'}"
+						:data-tooltip='column.label'>
 						{{column.label}}
 					</th>
 					<slot name="thead-tr"></slot>
