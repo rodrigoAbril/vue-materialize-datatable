@@ -50,7 +50,7 @@
 							+ (column.numeric ? ' numeric' : '')"
 						:style="{width: column.width ? column.width : 'auto'}"
 						:data-tooltip='column.label'>
-						<div>{{column.label}}<div>
+						<div>{{column.label}}</div>
 					</th>
 					<slot name="thead-tr"></slot>
 				</tr>
