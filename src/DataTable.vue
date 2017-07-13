@@ -50,7 +50,7 @@
 							+ (column.numeric ? ' numeric' : '')"
 						:style="{width: column.width ? column.width : 'auto'}"
 						:data-tooltip='column.label'>
-						{{column.label}}
+						<div>{{column.label}}<div>
 					</th>
 					<slot name="thead-tr"></slot>
 				</tr>
@@ -533,47 +533,15 @@
 		vertical-align: middle;
 		outline: none !important;
 
-	    overflow: hidden;
-	    text-overflow: ellipsis;
 	}
-
-	table th:hover {
-		overflow: visible;
-		text-overflow: initial;
+	table th div {
+    overflow: hidden;
+    text-overflow: ellipsis;
 	}
 
 	table th.sorting-asc,
 	table th.sorting-desc {
 		color: rgba(0, 0, 0, 0.87);
-	}
-
-	table th.sorting:after,
-	table th.sorting-asc:after  {
-		font-family: 'Material Icons';
-		font-weight: normal;
-		font-style: normal;
-		font-size: 16px;
-		line-height: 1;
-		letter-spacing: normal;
-		text-transform: none;
-		display: inline-block;
-		word-wrap: normal;
-		-webkit-font-feature-settings: 'liga';
-		-webkit-font-smoothing: antialiased;
-		content: "arrow_back";
-		-webkit-transform: rotate(90deg);
-		display: none;
-		vertical-align: middle;
-	}
-
-	table th.sorting:hover:after,
-	table th.sorting-asc:after,
-	table th.sorting-desc:after {
-		display: inline-block;
-	}
-
-	table th.sorting-desc:after {
-		content: "arrow_forward";
 	}
 
 	table tbody tr:hover {
@@ -593,9 +561,42 @@
 
 
 <!-- <table-tooltips> -->
+<!-- <table-arrows> -->
 <style scoped>
-@media only screen and (min-width: 992px){	
-	table th[data-tooltip]:before {
+
+	table th.sorting:before,
+	table th.sorting-asc:before  {
+		font-family: 'Material Icons';
+		font-weight: normal;
+		font-style: normal;
+		font-size: 16px;
+		line-height: 1;
+		letter-spacing: normal;
+		text-transform: none;
+		display: inline-block;
+		word-wrap: normal;
+		-webkit-font-feature-settings: 'liga';
+		-webkit-font-smoothing: antialiased;
+		content: "arrow_back";
+		-webkit-transform: rotate(90deg);
+		float: right;
+		opacity: 0;
+		vertical-align: middle;
+	}
+
+	table th.sorting:hover:before,
+	table th.sorting-asc:before,
+	table th.sorting-desc:before {
+		display: inline-block;
+	}
+
+	table th.sorting-desc:before {
+		content: "arrow_forward";
+	}
+
+
+@media only screen and (min-width: 992px){
+	table th[data-tooltip]:after {
 		 opacity: 0;
 		 visibility: hidden;
 		 position: absolute;
@@ -612,7 +613,7 @@
 		 transition: opacity 0.2s  cubic-bezier(.64,.09,.08,1), transform 0.2s  cubic-bezier(.64,.09,.08,1);
 	}
 
-	table th[data-tooltip]:hover:before {
+	table th[data-tooltip]:hover:after {
 	 display: block;
 	 opacity: 1;
 	 visibility: visible;
