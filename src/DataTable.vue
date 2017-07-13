@@ -330,7 +330,7 @@
             },
 
 			computedClass: function() {
-				return this.class
+				return this.class = 'responsive-table'
 			}
 		},
 
@@ -586,5 +586,55 @@
 
 	table th:first-child, table td:first-child {
 		padding-left: 24px;
+	}
+
+</style>
+
+
+<!-- <responsive-table> -->
+<style scoped>
+	@media only screen and (max-width: 992px){
+		table.responsive-table{
+			border-bottom: solid 1px #DDDDDD;
+		}
+		table.responsive-table:after {
+	    content: "";
+	    display: block;
+	    clear: both;
+		}
+		table.responsive-table thead tr{
+			padding: 0;
+		}
+
+		table.responsive-table tr th,
+		table.responsive-table tr td {
+			min-height: 40px;
+			height: auto;
+		}
+		table.responsive-table tr th{
+			padding: 10px;
+		}
+		table.responsive-table tr td{
+			padding: 10px 0;
+		}
+
+		table.responsive-table th.sorting:after,
+		table.responsive-table th.sorting-asc:after,
+		table.responsive-table th.sorting-desc:after {
+			display: inline-block;
+			opacity: 0;
+		}
+		table.responsive-table th.sorting:hover:after,
+		table.responsive-table th.sorting-asc:hover:after,
+		table.responsive-table th.sorting-desc:hover:after {
+			opacity: 1;
+		}
+		table.responsive-table tr,
+		table.responsive-table tr td {
+		  border: 0;
+		}
+		table.responsive-table tbody tr {
+			border-right: 1px solid #d0d0d0;
+		}
 	}
 </style>
