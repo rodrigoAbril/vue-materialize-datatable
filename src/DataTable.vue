@@ -592,6 +592,34 @@
 </style>
 
 
+<!-- <table-tooltips> -->
+<style scoped>
+@media only screen and (min-width: 992px){	
+	table th[data-tooltip]:before {
+		 opacity: 0;
+		 visibility: hidden;
+		 position: absolute;
+		 content: attr(data-tooltip);
+		 padding: 6px 10px;
+		 margin-top: -3.4em;
+		 left: 50%;
+		 transform: translateX(-50%) translateY(-2px);
+		 background: grey;
+		 color: white;
+		 white-space: nowrap;
+		 z-index: 2;
+		 border-radius: 2px;
+		 transition: opacity 0.2s  cubic-bezier(.64,.09,.08,1), transform 0.2s  cubic-bezier(.64,.09,.08,1);
+	}
+
+	table th[data-tooltip]:hover:before {
+	 display: block;
+	 opacity: 1;
+	 visibility: visible;
+	 transform: translateX(-50%) translateY(0);
+	}
+}
+</style>
 <!-- <responsive-table> -->
 <style scoped>
 	@media only screen and (max-width: 992px){
