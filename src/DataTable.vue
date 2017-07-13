@@ -340,8 +340,10 @@
 		}
 	}
 </script>
+<style scoped src="materialize-css/dist/css/materialize.min.css"></style>
 
 <style scoped>
+
 	div.material-table {
 		padding: 0;
 	}
@@ -599,7 +601,7 @@
 	table th[data-tooltip] {
 		position: relative;
 	}
-	
+
 	table th[data-tooltip]:after {
 		opacity: 0;
 		visibility: hidden;
