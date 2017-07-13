@@ -327,7 +327,7 @@
                 if (this.paginate)
                     paginatedRows = paginatedRows.slice((this.currentPage - 1) * this.currentPerPage, this.currentPerPage === -1 ? paginatedRows.length + 1 : this.currentPage * this.currentPerPage);
                 return paginatedRows;
-            }
+            },
 
 			computedClass: function() {
 				return this.class
