@@ -585,9 +585,9 @@
 	}
 
 	table th.sorting:hover:before,
-	table th.sorting-asc:before,
-	table th.sorting-desc:before {
-		display: inline-block;
+	table th.sorting-asc:hover:before,
+	table th.sorting-desc:hover:before {
+		opacity: 1;
 	}
 
 	table th.sorting-desc:before {
@@ -596,6 +596,8 @@
 
 
 @media only screen and (min-width: 992px){
+
+}
 	table th[data-tooltip]:after {
 		 opacity: 0;
 		 visibility: hidden;
