@@ -649,6 +649,7 @@
 		}
 		table.responsive-table tr th{
 			padding: 10px;
+			width: 100%;
 		}
 		table.responsive-table tr td{
 			padding: 10px 0;
