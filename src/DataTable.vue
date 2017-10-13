@@ -46,11 +46,14 @@
 						:class="(sortable ? 'sorting ' : '')
 							+ (sortColumn === index ?
 								(sortType === 'desc' ? 'sorting-desc' : 'sorting-asc')
-								: '')
+								: '') + (column.icon ? 'column-icon' : '' )
 							+ (column.numeric ? ' numeric' : '')"
 						:style="{width: column.width ? column.width : 'auto'}"
 						:data-tooltip='column.label'>
-						<div>{{column.label}}</div>
+						<div>
+							<i class="material-icons" v-if="column.icon">{{column.icon}}</i>
+							{{column.label}}
+						</div>
 					</th>
 					<slot name="thead-tr"></slot>
 				</tr>
