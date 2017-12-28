@@ -61,7 +61,7 @@
 
 			<tbody>
 				<tr v-for="(row, index) in paginated" :class="{ clickable : clickable }" @click="click(row)">
-					<td v-for="column in columns" :class=" {numeric : column.numeric, 'custom-icon':column.customIcon }">
+					<td v-for="column in columns" :class=" {numeric : column.numeric }">
 						<div v-if="!column.html">
               <span class="customIcon" :class="addCustomClass(row, column.field)" v-if="column.customIcon"></span>
               <span>{{ collect(row, column.field) }}</span>
@@ -266,8 +266,8 @@ export default {
       else return undefined;
     },
 
-    addCustomClass: function(item) {
-      let classAfter = this.collect(item)
+    addCustomClass: function(obj, field) {
+      let classAfter = this.collect(obj, field)
       return 'custom'+classAfter
     },
 
