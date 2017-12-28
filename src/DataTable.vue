@@ -61,7 +61,7 @@
 
 			<tbody>
 				<tr v-for="(row, index) in paginated" :class="{ clickable : clickable }" @click="click(row)">
-					<td v-for="column in columns" :class=" { numeric : column.numeric } ">
+					<td v-for="column in columns" :class=" {numeric : column.numeric }, {icon-value`collect(row, column.field)` : column.iconValue } ">
 						<div v-if="!column.html"> {{ collect(row, column.field) }} </div>
 						<div v-if="column.html" v-html="collect(row, column.field)"></div>
 					</td>
@@ -121,7 +121,7 @@ export default {
       type: Boolean,
       default: false
     },
-    paginate: { default: true },
+    : { default: true },
     exportable: { default: true },
     printable: { default: true }
   },
@@ -354,7 +354,7 @@ export default {
     },
 
     computedClass: function() {
-      return (this.class = "responsive-table");
+      return (this.class = "responsive-table-not");
     }
   },
 
@@ -366,341 +366,339 @@ export default {
 <style scoped src="materialize-css/dist/css/materialize.min.css"></style>
 
 <style scoped>
+div.material-table {
+  padding: 0;
+}
 
-	div.material-table {
-		padding: 0;
-	}
+tr.clickable {
+  cursor: pointer;
+}
 
-	tr.clickable {
-		cursor: pointer;
-	}
+#search-input {
+  margin: 0;
+  border: transparent 0 !important;
+  height: 48px;
+  color: rgba(0, 0, 0, 0.84);
+}
 
-	#search-input {
-		margin: 0;
-		border: transparent 0 !important;
-		height: 48px;
-		color: rgba(0, 0, 0, .84);
-	}
+#search-input-container {
+  padding: 0 14px 0 24px;
+  border-bottom: solid 1px #dddddd;
+}
 
-	#search-input-container {
-		padding: 0 14px 0 24px;
-		border-bottom: solid 1px #DDDDDD;
-	}
+table {
+  table-layout: fixed;
+}
 
-	table {
-		table-layout: fixed;
-	}
+.table-header {
+  height: 64px;
+  padding-left: 24px;
+  padding-right: 14px;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: flex;
+  -webkit-display: flex;
+  border-bottom: solid 1px #dddddd;
+}
 
-	.table-header {
-		height: 64px;
-		padding-left: 24px;
-		padding-right: 14px;
-		-webkit-align-items: center;
-		-ms-flex-align: center;
-		align-items: center;
-		display: flex;
-		-webkit-display: flex;
-		border-bottom: solid 1px #DDDDDD;
-	}
+.table-header .actions {
+  display: -webkit-flex;
+  margin-left: auto;
+}
 
-	.table-header .actions {
-		display: -webkit-flex;
-		margin-left: auto;
-	}
+.table-header .btn-flat {
+  min-width: 36px;
+  padding: 0 8px;
+}
 
-	.table-header .btn-flat {
-			min-width: 36px;
-			padding: 0 8px;
-	}
+.table-header input {
+  margin: 0;
+  height: auto;
+}
 
-	.table-header input {
-		margin: 0;
-		height: auto;
-	}
+.table-header i {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 24px;
+}
 
-	.table-header i {
-		color: rgba(0, 0, 0, 0.54);
-		font-size: 24px;
-	}
+.table-footer {
+  height: 56px;
+  padding-left: 24px;
+  padding-right: 14px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+  -webkit-align-items: center;
+  align-items: center;
+  font-size: 12px !important;
+  color: rgba(0, 0, 0, 0.54);
+}
 
-	.table-footer {
-		height: 56px;
-		padding-left: 24px;
-		padding-right: 14px;
-		display: -webkit-flex;
-		display: flex;
-		-webkit-flex-direction: row;
-		flex-direction: row;
-		-webkit-justify-content: flex-end;
-		justify-content: flex-end;
-		-webkit-align-items: center;
-		align-items: center;
-		font-size: 12px !important;
-		color: rgba(0, 0, 0, 0.54);
-	}
+.table-footer .datatable-length {
+  display: -webkit-flex;
+  display: flex;
+}
 
-	.table-footer .datatable-length {
-		display: -webkit-flex;
-		display: flex;
-	}
+.table-footer .datatable-length select {
+  outline: none;
+}
 
-	.table-footer .datatable-length select {
-		outline: none;
-	}
+.table-footer label {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.54);
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  /* works with row or column */
 
-	.table-footer label {
-		font-size: 12px;
-		color: rgba(0, 0, 0, 0.54);
-		display: -webkit-flex;
-		display: flex;
-		-webkit-flex-direction: row;
-		/* works with row or column */
+  flex-direction: row;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
 
-		flex-direction: row;
-		-webkit-align-items: center;
-		align-items: center;
-		-webkit-justify-content: center;
-		justify-content: center;
-	}
+.table-footer .select-wrapper {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  /* works with row or column */
 
-	.table-footer .select-wrapper {
-		display: -webkit-flex;
-		display: flex;
-		-webkit-flex-direction: row;
-		/* works with row or column */
+  flex-direction: row;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
 
-		flex-direction: row;
-		-webkit-align-items: center;
-		align-items: center;
-		-webkit-justify-content: center;
-		justify-content: center;
-	}
+.table-footer .datatable-info,
+.table-footer .datatable-length {
+  margin-right: 32px;
+}
 
-	.table-footer .datatable-info,
-	.table-footer .datatable-length {
-		margin-right: 32px;
-	}
+.table-footer .material-pagination {
+  display: flex;
+  -webkit-display: flex;
+  margin: 0;
+}
 
-	.table-footer .material-pagination {
-		display: flex;
-		-webkit-display: flex;
-		margin: 0;
-	}
+.table-footer .material-pagination li a {
+  color: rgba(0, 0, 0, 0.54);
+  padding: 0 8px;
+  font-size: 24px;
+}
 
-	.table-footer .material-pagination li a {
-		color: rgba(0, 0, 0, 0.54);
-		padding: 0 8px;
-		font-size: 24px;
-	}
+.table-footer .select-wrapper input.select-dropdown {
+  margin: 0;
+  border-bottom: none;
+  height: auto;
+  line-height: normal;
+  font-size: 12px;
+  width: 40px;
+  text-align: right;
+}
 
-	.table-footer .select-wrapper input.select-dropdown {
-		margin: 0;
-		border-bottom: none;
-		height: auto;
-		line-height: normal;
-		font-size: 12px;
-		width: 40px;
-		text-align: right;
-	}
+.table-footer select {
+  background-color: transparent;
+  width: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  height: auto;
+  margin-left: 20px;
+}
 
-	.table-footer select {
-		background-color: transparent;
-		width: auto;
-		padding: 0;
-		border: 0;
-		border-radius: 0;
-		height: auto;
-		margin-left: 20px;
-	}
+.table-title {
+  font-size: 20px;
+  color: #000;
+}
 
-	.table-title {
-		font-size: 20px;
-		color: #000;
-	}
+table tr td {
+  padding: 0 0 0 56px;
+  height: 48px;
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.87);
+  border-bottom: solid 1px #dddddd;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
-	table tr td {
-		padding: 0 0 0 56px;
-		height: 48px;
-		font-size: 13px;
-		color: rgba(0, 0, 0, 0.87);
-		border-bottom: solid 1px #DDDDDD;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
+table td,
+table th {
+  border-radius: 0;
+}
 
-	table td, table th {
-    	border-radius: 0;
-	}
+table tr td a {
+  color: inherit;
+}
 
-	table tr td a {
-		color: inherit;
-	}
+table tr td a i {
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.54);
+}
 
-	table tr td a i {
-		font-size: 18px;
-		color: rgba(0, 0, 0, 0.54);
-	}
+table tr {
+  font-size: 12px;
+}
 
-	table tr {
-		font-size: 12px;
-	}
+table th {
+  font-size: 12px;
+  font-weight: 500;
+  color: #757575;
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 0;
+  height: 56px;
+  padding-left: 56px;
+  vertical-align: middle;
+  outline: none !important;
+}
+table th div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
-	table th {
-		font-size: 12px;
-		font-weight: 500;
-		color: #757575;
-		cursor: pointer;
-		white-space: nowrap;
-		padding: 0;
-		height: 56px;
-		padding-left: 56px;
-		vertical-align: middle;
-		outline: none !important;
+table th.sorting-asc,
+table th.sorting-desc {
+  color: rgba(0, 0, 0, 0.87);
+}
 
-	}
-	table th div {
-    overflow: hidden;
-    text-overflow: ellipsis;
-	}
+table tbody tr:hover {
+  background-color: #eee;
+}
 
-	table th.sorting-asc,
-	table th.sorting-desc {
-		color: rgba(0, 0, 0, 0.87);
-	}
+table th:last-child,
+table td:last-child {
+  padding-right: 14px;
+}
 
-	table tbody tr:hover {
-		background-color: #EEE;
-	}
-
-	table th:last-child,
-	table td:last-child {
-		padding-right: 14px;
-	}
-
-	table th:first-child, table td:first-child {
-		padding-left: 24px;
-	}
-
+table th:first-child,
+table td:first-child {
+  padding-left: 24px;
+}
 </style>
 
 
 <!-- <table-header-icons> -->
 <style scoped>
-	table th i {
-		vertical-align: middle;
-	}
+table th i {
+  vertical-align: middle;
+}
 </style>
 <!-- <table-tooltips> -->
 <!-- <table-arrows> -->
 <style scoped>
+table th.sorting:before,
+table th.sorting-asc:before {
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  word-wrap: normal;
+  -webkit-font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+  content: "arrow_back";
+  -webkit-transform: rotate(90deg);
+  float: right;
+  opacity: 0;
+  vertical-align: middle;
+}
 
-	table th.sorting:before,
-	table th.sorting-asc:before  {
-		font-family: 'Material Icons';
-		font-weight: normal;
-		font-style: normal;
-		font-size: 16px;
-		line-height: 1;
-		letter-spacing: normal;
-		text-transform: none;
-		display: inline-block;
-		word-wrap: normal;
-		-webkit-font-feature-settings: 'liga';
-		-webkit-font-smoothing: antialiased;
-		content: "arrow_back";
-		-webkit-transform: rotate(90deg);
-		float: right;
-		opacity: 0;
-		vertical-align: middle;
-	}
+table th.sorting:hover:before,
+table th.sorting-asc:hover:before,
+table th.sorting-desc:hover:before {
+  opacity: 1;
+}
 
-	table th.sorting:hover:before,
-	table th.sorting-asc:hover:before,
-	table th.sorting-desc:hover:before {
-		opacity: 1;
-	}
+table th.sorting-desc:before {
+  content: "arrow_forward";
+}
 
-	table th.sorting-desc:before {
-		content: "arrow_forward";
-	}
+@media only screen and (min-width: 992px) {
+  table th[data-tooltip] {
+    position: relative;
+  }
 
+  table th[data-tooltip]:after {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    content: attr(data-tooltip);
+    padding: 6px 10px;
+    bottom: 3.4em;
+    left: 50%;
+    transform: translateX(-50%) translateY(-2px);
+    background: grey;
+    color: white;
+    white-space: nowrap;
+    z-index: 2;
+    border-radius: 2px;
+    transition: opacity 0.2s cubic-bezier(0.64, 0.09, 0.08, 1),
+      transform 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
+  }
 
-@media only screen and (min-width: 992px){
-	table th[data-tooltip] {
-		position: relative;
-	}
-
-	table th[data-tooltip]:after {
-		opacity: 0;
-		visibility: hidden;
-		position: absolute;
-		content: attr(data-tooltip);
-		padding: 6px 10px;
-		bottom: 3.4em;
-		left: 50%;
-		transform: translateX(-50%) translateY(-2px);
-		background: grey;
-		color: white;
-		white-space: nowrap;
-		z-index: 2;
-		border-radius: 2px;
-		transition: opacity 0.2s  cubic-bezier(.64,.09,.08,1), transform 0.2s  cubic-bezier(.64,.09,.08,1);
-	}
-
-	table th[data-tooltip]:hover:after {
-		display: block;
-		opacity: 1;
-		visibility: visible;
-		transform: translateX(-50%) translateY(0);
-	}
+  table th[data-tooltip]:hover:after {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 </style>
 <!-- <responsive-table> -->
 <style scoped>
-	@media only screen and (max-width: 992px){
-		table.responsive-table{
-			border-bottom: solid 1px #DDDDDD;
-		}
-		table.responsive-table:after {
-	    content: "";
-	    display: block;
-	    clear: both;
-		}
-		table.responsive-table thead tr{
-			padding: 0;
-		}
+@media only screen and (max-width: 992px) {
+  table.responsive-table {
+    border-bottom: solid 1px #dddddd;
+  }
+  table.responsive-table:after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+  table.responsive-table thead tr {
+    padding: 0;
+  }
 
-		table.responsive-table tr th,
-		table.responsive-table tr td {
-			min-height: 40px;
-			height: auto;
-		}
-		table.responsive-table tr th{
-			padding: 10px;
-			width: 100%!important;
-		}
-		table.responsive-table tr td{
-			padding: 10px 0;
-		}
+  table.responsive-table tr th,
+  table.responsive-table tr td {
+    min-height: 40px;
+    height: auto;
+  }
+  table.responsive-table tr th {
+    padding: 10px;
+    width: 100% !important;
+  }
+  table.responsive-table tr td {
+    padding: 10px 0;
+  }
 
-		table.responsive-table th.sorting:after,
-		table.responsive-table th.sorting-asc:after,
-		table.responsive-table th.sorting-desc:after {
-			display: inline-block;
-			opacity: 0;
-		}
-		table.responsive-table th.sorting:hover:after,
-		table.responsive-table th.sorting-asc:hover:after,
-		table.responsive-table th.sorting-desc:hover:after {
-			opacity: 1;
-		}
-		table.responsive-table tr,
-		table.responsive-table tr td {
-		  border: 0;
-		}
-		table.responsive-table tbody tr {
-			border-right: 1px solid #d0d0d0;
-		}
-	}
+  table.responsive-table th.sorting:after,
+  table.responsive-table th.sorting-asc:after,
+  table.responsive-table th.sorting-desc:after {
+    display: inline-block;
+    opacity: 0;
+  }
+  table.responsive-table th.sorting:hover:after,
+  table.responsive-table th.sorting-asc:hover:after,
+  table.responsive-table th.sorting-desc:hover:after {
+    opacity: 1;
+  }
+  table.responsive-table tr,
+  table.responsive-table tr td {
+    border: 0;
+  }
+  table.responsive-table tbody tr {
+    border-right: 1px solid #d0d0d0;
+  }
+}
 </style>
