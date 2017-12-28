@@ -63,7 +63,7 @@
 				<tr v-for="(row, index) in paginated" :class="{ clickable : clickable }" @click="click(row)">
 					<td v-for="column in columns" :class=" {numeric : column.numeric, 'custom-icon':column.customIcon }">
 						<div v-if="!column.html">
-              <span class="customIcon" :class="column.field" v-if="column.customIcon"></span>
+              <span class="customIcon" :class="addCustomClass(row, column.field)" v-if="column.customIcon"></span>
               <span>{{ collect(row, column.field) }}</span>
             </div>
 						<div v-if="column.html" v-html="collect(row, column.field)"></div>
@@ -264,7 +264,14 @@ export default {
       if (typeof field === "function") return field(obj);
       else if (typeof field === "string") return this.dig(obj, field);
       else return undefined;
-    }
+    },
+
+    addCustomClass: function(item) {
+      let classAfter = this.collect(item)
+      return 'custom'+classAfter
+    },
+
+
   },
 
   computed: {
@@ -358,7 +365,7 @@ export default {
 
     computedClass: function() {
       return (this.class = "responsive-table-not");
-    }
+    },
   },
 
   mounted: function() {
