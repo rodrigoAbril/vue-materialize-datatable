@@ -61,7 +61,11 @@
 
 			<tbody>
 				<tr v-for="(row, index) in paginated" :class="{ clickable : clickable }" @click="click(row)">
+<<<<<<< HEAD
 					<td v-for="column in columns" :class=" {numeric : column.numeric }, {iconValue+'column.field' : column.iconValue } ">
+=======
+					<td v-for="column in columns" :class=" {numeric : column.numeric }, {icon-value+'column.field' : column.iconValue } ">
+>>>>>>> 1e8db3bb01e5fc450a64680154078ce45fee2baa
 						<div v-if="!column.html"> {{ collect(row, column.field) }} </div>
 						<div v-if="column.html" v-html="collect(row, column.field)"></div>
 					</td>
