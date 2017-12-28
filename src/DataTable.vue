@@ -268,7 +268,7 @@ export default {
 
     addCustomClass: function(obj, field) {
       let classAfter = this.collect(obj, field)
-      return 'custom'+classAfter
+      return 'class-'+classAfter
     },
 
 
