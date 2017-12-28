@@ -61,11 +61,7 @@
 
 			<tbody>
 				<tr v-for="(row, index) in paginated" :class="{ clickable : clickable }" @click="click(row)">
-<<<<<<< HEAD
-					<td v-for="column in columns" :class=" {numeric : column.numeric }, {icon-value+'column.field' : column.iconValue } ">
-=======
-					<td v-for="column in columns" :class=" {numeric : column.numeric }, {icon-value`collect(row, column.field)` : column.iconValue } ">
->>>>>>> 9a7bcb0ae3d792138b2509800aa419c947202a5f
+					<td v-for="column in columns" :class=" {numeric : column.numeric }, {iconValue+'column.field' : column.iconValue } ">
 						<div v-if="!column.html"> {{ collect(row, column.field) }} </div>
 						<div v-if="column.html" v-html="collect(row, column.field)"></div>
 					</td>
@@ -125,7 +121,7 @@ export default {
       type: Boolean,
       default: false
     },
-    : { default: true },
+    paginate: { default: true },
     exportable: { default: true },
     printable: { default: true }
   },
