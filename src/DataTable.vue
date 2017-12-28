@@ -63,7 +63,7 @@
 				<tr v-for="(row, index) in paginated" :class="{ clickable : clickable }" @click="click(row)">
 					<td v-for="column in columns" :class=" {numeric : column.numeric, 'custom-icon':column.customIcon }">
 						<div v-if="!column.html">
-              <span class="customIcon" :class="collect(row, column.field)" v-if="column.customIcon"></span>
+              <span class="customIcon" :class="column.field" v-if="column.customIcon"></span>
               <span>{{ collect(row, column.field) }}</span>
             </div>
 						<div v-if="column.html" v-html="collect(row, column.field)"></div>
