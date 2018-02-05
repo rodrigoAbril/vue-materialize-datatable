@@ -71,7 +71,7 @@
             </div>
 						<div v-if="column.html" v-html="collect(row, column.field)"></div>
 					</td>
-					<slot name="tbody-tr" :row="row, index"></slot>
+					<slot name="tbody-tr" :row="row"></slot>
 				</tr>
 			</tbody>
 		</table>
