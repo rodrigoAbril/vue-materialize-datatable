@@ -4,6 +4,7 @@
 			<span class="table-title">{{title}}</span>
 			<div class="actions">
 				<a v-for="button in customButtons" href="javascript:undefined"
+            :key="button.icon"
 				   class="waves-effect btn-flat nopadding"
 				   v-if="button.hide ? !button.hide : true"
 				   @click="button.onclick">
@@ -41,7 +42,8 @@
 		<table ref="table" :class="computedClass">
 			<thead>
 				<tr>
-					<th v-for="(column, index) in columns"
+					<th 
+            v-for="(column, index) in columns"
 						@click="sort(index)"
 						:class="(sortable ? 'sorting ' : '')
 							+ (sortColumn === index ?
@@ -49,7 +51,8 @@
 								: '') + (column.icon ? 'column-icon' : '' )
 							+ (column.numeric ? ' numeric' : '')"
 						:style="{width: column.width ? column.width : 'auto'}"
-						:data-tooltip='column.label'>
+						:data-tooltip='column.label'
+            :key="column.label">
 						<div>
 							<i class="material-icons" v-if="column.icon">{{column.icon}}</i>
 							{{column.label}}
@@ -68,7 +71,7 @@
             </div>
 						<div v-if="column.html" v-html="collect(row, column.field)"></div>
 					</td>
-					<slot name="tbody-tr" :row="row"></slot>
+					<slot name="tbody-tr" :row="row, index"></slot>
 				</tr>
 			</tbody>
 		</table>
